@@ -134,9 +134,132 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigator() {
     val navController = rememberNavController()
+    NavHost(navController, startDestination = "splash") {
+        composable("splash") { SplashScreen(navController) }
+        composable("welcome") { WelcomeScreen(navController) }
 
+    }
 
 }
+
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    SmartLabTheme {
+        AppNavigator()
+    }
+}
+
+@Composable
+fun SplashScreen(navController: NavController) {
+    LaunchedEffect(Unit) {
+        delay(1)
+        navController.navigate("welcome") {
+            popUpTo("splash") { inclusive = true }
+        }
+    }
+}
+
+
+@Composable
+fun WelcomeScreen(navController: NavController) {
+    val pagerState = rememberPagerState()
+
+    val pages = listOf(
+        PageData("Пропустить","Анализы", "Здесь вы можете увидеть свои анализы", R.mipmap.ill_foreground, R.drawable.dots1),
+        PageData("Пропустить","Уведомления", "Работа с врачами станет проще", R.mipmap.doc1_foreground, R.drawable.dots2),
+        PageData("Завершить","Мониторинг", "Следите за состоянием здоровья", R.mipmap.doc2_foreground, R.drawable.dots3)
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(10.dp)
+    ) {
+        TopAppBar(title= { Text("METANIT.COM", fontSize = 1.sp)}, backgroundColor = Color.White, modifier = Modifier.background(color = Color.White),)
+        Row(Modifier.fillMaxWidth().padding(10.dp),horizontalArrangement = Arrangement.SpaceBetween) {
+            TextButton(
+                onClick = { navController.navigate("main") },
+                modifier = Modifier
+                    .padding(16.dp)
+            ) {
+                Text(pages[pagerState.currentPage].button)
+            }
+            Image(
+                painter = painterResource(id = R.drawable.sq), // Ссылка на векторное изображение
+                contentDescription = "",
+                contentScale = ContentScale.Fit, // Масштабирование изображения
+                modifier = Modifier.size(150.dp) // Размер изображения
+                    .padding(top = 20.dp)
+            )
+
+        }
+
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = 40.dp)) {
+            HorizontalPager(
+                count = pages.size,
+                state = pagerState,
+                //modifier = Modifier.weight(1f),
+            ) { page ->
+                WelcomePage(pages[page])
+            }
+
+            HorizontalPagerIndicator(
+                pagerState = pagerState,
+                modifier = Modifier
+                    //.align(Alignment.CenterHorizontally)
+                    .padding(16.dp),
+                activeColor = Color.Blue
+            ) }
+
+    }
+}
+
+@Composable
+fun WelcomePage(page: PageData) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(
+                modifier = Modifier
+                    .height(60.dp))
+            Text(page.title, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = HeaderColor)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(page.description, fontSize = 16.sp, color = Color.DarkGray)
+            Image(
+                painter = painterResource(id = page.dotimgId), // Ссылка на векторное изображение
+                contentDescription = "..",
+                contentScale = ContentScale.Fit, // Масштабирование изображения
+                modifier = Modifier.size(50.dp) // Размер изображения
+            )
+            Spacer(
+                modifier = Modifier
+                    .weight(1f))
+        }
+        Image(
+            painter = painterResource(id = page.imgId), // Ссылка на векторное изображение
+            contentDescription = "..",
+            contentScale = ContentScale.Fit, // Масштабирование изображения
+            modifier = Modifier.align(Alignment.BottomCenter).size(400.dp) // Размер изображения
+        )
+    }
+}
+
+data class PageData(
+    val button: String,
+    val title: String,
+    val description: String,
+    val imgId:Int,
+    val dotimgId:Int
+)
+
 
 
 
