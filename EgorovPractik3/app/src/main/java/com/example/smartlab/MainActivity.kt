@@ -141,6 +141,7 @@ fun AppNavigator() {
         composable("code") { Code(navController) }
         composable("createPassword") { CreatePassword(navController) }
         composable("patient") { CreatePatient(navController) }
+        composable("mainSearch") { SearchScreen(navController) }
     }
 
 }
@@ -768,7 +769,141 @@ fun CreatePatient(navController: NavController) {
     }
 }
 
+@Composable
+fun SearchScreen(navController: NavController) {
+    Box (modifier = Modifier.background(Color.White).fillMaxSize()) {
+        TopAppBar(title= { Text("METANIT.COM", fontSize = 1.sp) }, backgroundColor = Color.White, modifier = Modifier.background(color = Color.White))
+        Column(modifier = Modifier
+            .padding(top = 50.dp)
+            .fillMaxWidth()
 
+        ) {
+
+            SearchInput(
+                modifier = Modifier
+                    .size(335.dp,48.dp).align(Alignment.CenterHorizontally),
+                placeholder = "Искать анализы",
+            )
+            Spacer(Modifier.height(30.dp))
+            Text(
+                text = "Акции и новости",
+                fontWeight = FontWeight.W400,
+                fontSize = 17.sp,
+                lineHeight = 20.sp,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
+                color = Color.Gray
+            )
+            Row (Modifier.padding(top = 20.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.banner),
+                    contentDescription = "..",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.size(270.dp, 152.dp).padding(horizontal = 10.dp)
+                )
+            }
+            Text(
+                text = "Каталог анализов",
+                fontWeight = FontWeight.W400,
+                fontSize = 17.sp,
+                lineHeight = 20.sp,
+                modifier = Modifier.fillMaxWidth().padding(top = 30.dp).padding(horizontal = 10.dp),
+                color = Color.Gray
+            )
+            Row (Modifier.padding(top = 10.dp)) {
+                Button(
+                    enabled = true,
+                    onClick = {},
+                    modifier = Modifier
+                        .height(48.dp).width(170.dp).padding(horizontal = 10.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Cyan,
+                        contentColor = Color.White,
+                        disabledContentColor = Color.White,
+                        disabledContainerColor = Color.Blue
+                    ),
+                    border = BorderStroke(1.dp, color = Color(0xFFEBEBEB))
+                ) {
+                    Text(
+                        text = "Популярное",
+                        fontSize = 17.sp,
+                        lineHeight = 24.sp,
+                        fontWeight = FontWeight.W400
+                    )
+                }
+            }
+            Box (Modifier.padding(10.dp).background(Color.White).border(1.dp, color = Color(0xFFEBEBEB))) {
+                Text(
+                    text = "ПЦР-тест на определение РНК коронавируса стандартный",
+                    fontWeight = FontWeight.W400,
+                    fontSize = 17.sp,
+                    lineHeight = 20.sp,
+                    modifier = Modifier.fillMaxWidth().padding(10.dp)
+                )
+                Row (Modifier.padding(top = 45.dp)) {
+                    Text(
+                        text = "2 дня",
+                        fontWeight = FontWeight.W400,
+                        fontSize = 17.sp,
+                        lineHeight = 20.sp,
+                        modifier = Modifier.fillMaxWidth().padding(10.dp),
+                        color = Color.Gray
+                    )
+                    Button(
+                        enabled = true,
+                        onClick = { navController.navigate("code") },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(60.dp),
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Blue,
+                            contentColor = Color.White,
+                            disabledContentColor = Color.White,
+                            disabledContainerColor = Color.Blue
+                        ),
+                        border = BorderStroke(1.dp, color = Color(0xFFEBEBEB))
+                    ) {
+                        Text(
+                            text = "Популярное",
+                            fontSize = 17.sp,
+                            lineHeight = 24.sp,
+                            fontWeight = FontWeight.W400
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            BottomNavigation (modifier = Modifier, backgroundColor =  Color.White, contentColor = Color.Blue) {
+                BottomNavigationItem(
+                    icon = { Icon(Icons.Default.Home, contentDescription = null) },
+                    label = { Text("Анализы") },
+                    selected = false,
+                    onClick = { },
+                )
+                BottomNavigationItem(
+                    icon = { Icon(Icons.Default.Person, contentDescription = null) },
+                    label = { Text("Результаты") },
+                    selected = false,
+                    onClick = { navController.navigate("complete") },
+                )
+                BottomNavigationItem(
+                    icon = { Icon(Icons.Default.Build, contentDescription = null) },
+                    label = { Text("Поддержка") },
+                    selected = false,
+                    onClick = {  },
+                )
+                BottomNavigationItem(
+                    icon = { Icon(Icons.Default.Phone, contentDescription = null) },
+                    label = { Text("Профиль") },
+                    selected = false,
+                    onClick = {  },
+                )
+            }
+        }
+
+    }
+}
 
 
 
