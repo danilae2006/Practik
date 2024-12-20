@@ -142,6 +142,8 @@ fun AppNavigator() {
         composable("createPassword") { CreatePassword(navController) }
         composable("patient") { CreatePatient(navController) }
         composable("mainSearch") { SearchScreen(navController) }
+        composable("load") { LoadScreen(navController) }
+        composable("complete") { Onboard(navController) }
     }
 
 }
@@ -902,6 +904,141 @@ fun SearchScreen(navController: NavController) {
             }
         }
 
+    }
+}
+@Composable
+fun LoadScreen(navController: NavController) {
+
+
+    Box(modifier = Modifier.background(Color.White).fillMaxSize().padding(horizontal = 15.dp)) {
+        TopAppBar(title= { Text("METANIT.COM", fontSize = 1.sp)}, backgroundColor = Color.White, modifier = Modifier.background(color = Color.White))
+        Column {
+            Text(
+                modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 40.dp),
+                text = "Оплата",
+                style = TextStyle(fontSize = 20.sp, color = Color.Black),
+            )
+            Image(
+                painter = painterResource(id = R.drawable.progress),
+                contentDescription = "",
+                modifier = Modifier.padding(start = 1.dp, top = 50.dp)
+            )
+        }
+    }
+}
+@Composable
+fun Onboard (navController: NavController) {
+    Box (modifier = Modifier.background(color = Color.White).verticalScroll(rememberScrollState())) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 20.dp, vertical = 32.dp).align(Alignment.Center),
+        ) {
+            Column (modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 15.dp)) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    text = "Оплата",
+                    fontSize = 20.sp,
+                    color = Color.Black,
+                    lineHeight = 28.sp,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.W600
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .size(64.dp)
+                )
+
+                Image(
+                    painter = painterResource(id = R.drawable.illustration),
+                    contentDescription = "..",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.align(Alignment.CenterHorizontally).size(400.dp)
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .size(31.dp)
+                )
+
+                OnboardHeader(
+                    text = "Ваш заказ успешно оплачен!",
+                    modifier = Modifier
+                        .fillMaxWidth().align(Alignment.CenterHorizontally)
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .size(10.dp)
+                )
+
+
+                OnboardDescription(
+                    text = "Вам осталось дождаться приезда медсестры и сдать анализы. \n" +
+                            "До скорой встречи!",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 42.dp).align(Alignment.CenterHorizontally)
+
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .size(10.dp)
+                )
+
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                    OnboardDescription(
+                        text = "Не забудьте ознакомиться с ",
+                        modifier = Modifier
+                            .padding(start = 36.dp)
+                    )
+
+                    Image(
+                        ImageBitmap.imageResource(R.drawable.icons),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(width = 13.dp, height = 13.dp)
+                    )
+
+                    com.example.controls.ui.theme.Components.TextButton(
+                        modifier = Modifier,
+                        text = " правилами"
+                    )
+                }
+
+                com.example.controls.ui.theme.Components.TextButton(
+                    modifier = Modifier.align(Alignment.CenterHorizontally).padding(horizontal = 10.dp)
+                    ,
+                    text = "подготовки к сдаче анализов"
+                )
+
+                Spacer(
+                    modifier = Modifier
+                        .weight(1f)
+                )
+
+                SecondaryButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    text = "Чек покупки"
+                ) { }
+
+                Spacer(
+                    modifier = Modifier
+                        .size(20.dp)
+                )
+
+                PrimaryButton(modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth()
+                    .height(56.dp), text = "На главную", onClick = {
+                    navController.navigate("mainSearch")
+
+                })
+
+            }
+        }
     }
 }
 
