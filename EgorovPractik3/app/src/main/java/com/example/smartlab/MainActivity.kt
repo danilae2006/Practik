@@ -236,9 +236,9 @@ fun WelcomePage(page: PageData) {
             Spacer(
                 modifier = Modifier
                     .height(60.dp))
-            Text(page.title, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = HeaderColor)
+            Text(page.title, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = HeaderColor, modifier = Modifier)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(page.description, fontSize = 16.sp, color = Color.DarkGray)
+            Text(page.description, fontSize = 16.sp, color = Color.DarkGray, modifier = Modifier)
             Image(
                 painter = painterResource(id = page.dotimgId), // Ссылка на векторное изображение
                 contentDescription = "..",
@@ -248,13 +248,14 @@ fun WelcomePage(page: PageData) {
             Spacer(
                 modifier = Modifier
                     .weight(1f))
+            Image(
+                painter = painterResource(id = page.imgId), // Ссылка на векторное изображение
+                contentDescription = "..",
+                contentScale = ContentScale.Fit, // Масштабирование изображения
+                modifier = Modifier.align(Alignment.CenterHorizontally).size(400.dp) // Размер изображения
+            )
         }
-        Image(
-            painter = painterResource(id = page.imgId), // Ссылка на векторное изображение
-            contentDescription = "..",
-            contentScale = ContentScale.Fit, // Масштабирование изображения
-            modifier = Modifier.align(Alignment.BottomCenter).size(400.dp) // Размер изображения
-        )
+
     }
 }
 
